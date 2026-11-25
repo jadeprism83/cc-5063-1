@@ -1,8 +1,15 @@
 {
   "name": "rational-spline-studio",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Exact rational B-spline surface inspector and editor",
   "type": "module",
+  "kernelLock": {
+    "engine": "nurbs-kernel-v2",
+    "engineVersion": "2.0.0",
+    "adapterVersion": "2.0.0",
+    "archiveSchemaVersion": 2,
+    "lockFile": "build-lock.json"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "node --test test/*.test.js",

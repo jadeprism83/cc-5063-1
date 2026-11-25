@@ -136,9 +136,25 @@ export class CanvasViewer {
     if (!scene) return;
     if (scene.mesh && scene.showSurface !== false) this.#drawSurface(scene.mesh, scene.showWire !== false);
     if (scene.mesh && scene.showWire && scene.showSurface === false) this.#drawGrid(scene.mesh, 'rgba(148,197,255,0.72)');
+    if (scene.isoparametric?.points?.length && scene.isoparametric.visible !== false) this.#drawIsoparametric(scene.isoparametric);
     if (scene.net && scene.showNet !== false) this.#drawControlNet(scene.net);
     if (scene.mesh && scene.showNormals) this.#drawMeshNormals(scene.mesh);
     if (scene.marker) this.#drawMarker(scene.marker);
+  }
+
+  #drawIsoparametric(iso) {
+    const ctx = this.ctx;
+    ctx.strokeStyle = '#f472b6';
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    let started = false;
+    for (const p of iso.points) {
+      const q = this.project(p);
+      if (!q) { started = false; continue; }
+      if (!started) { ctx.moveTo(q.x, q.y); started = true; }
+      else ctx.lineTo(q.x, q.y);
+    }
+    ctx.stroke();
   }
 
   #drawAxes() {

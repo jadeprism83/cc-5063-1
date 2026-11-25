@@ -21,6 +21,7 @@ for (const id of ids) {
   const summary = {
     id,
     name: spec.name,
+    engine: { name: surface.engine, version: surface.kernelVersion, meshEngine: mesh.engine, meshKernelVersion: mesh.kernelVersion },
     domain: { u: surface.domainU, v: surface.domainV },
     controlPoints: { u: surface.nu, v: surface.nv },
     degrees: { u: surface.p, v: surface.q },

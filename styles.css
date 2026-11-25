@@ -145,3 +145,27 @@ details summary { cursor: pointer; color: #7dd3fc; margin: 8px 0; }
   .layout { grid-template-columns: 320px 1fr 380px; }
   .brand span { display: none; }
 }
+
+.kernel-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(14,165,233,.16);
+  border: 1px solid rgba(14,165,233,.45);
+  color: #7dd3fc;
+}
+.kernel-badge.degraded {
+  background: rgba(239,68,68,.18);
+  border-color: rgba(239,68,68,.5);
+  color: #fecaca;
+}
+.iso-controls { display: grid; gap: 8px; margin-bottom: 8px; }
+.iso-report { font-size: 11px; display: grid; gap: 5px; }
+.iso-report .kv { display: flex; justify-content: space-between; gap: 8px; }
+.iso-report .good { color: #86efac; }
+.iso-report .bad { color: #fca5a5; }
+.iso-report .warn { color: #fde68a; }
+.iso-report .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }

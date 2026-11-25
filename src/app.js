@@ -5,6 +5,8 @@ import { CanvasViewer } from './viewer.js';
 import { runErrorDistribution, runKeyChecks, compareAtPoint } from './verification.js';
 import { exportOBJ, exportSTL, downloadBlob } from './exporters.js';
 import { formatNumber } from './validation.js';
+import { KERNEL_NAME, KERNEL_VERSION } from './kernel/nurbs-kernel.js';
+import { maxComponentError } from './math-utils.js';
 
 const $ = id => document.getElementById(id);
 const canvas = $('viewer');
@@ -18,6 +20,7 @@ let selected = [0, 0];
 let referenceDirty = false;
 let keyRecords = [];
 let inspectorTimer = null;
+let isoparametric = { fixed: 'u', value: 0.5, points: [], failures: [], visible: true, engine: null };
 
 const display = {
   showSurface: $('showSurface').checked,
@@ -76,6 +79,7 @@ function buildScene(marker = null) {
   return {
     mesh,
     marker,
+    isoparametric,
     showSurface: display.showSurface,
     showWire: display.showWire,
     showNet: display.showNet,
@@ -127,6 +131,75 @@ function renderTitle(failureCount = 0) {
   $('viewerTitle').textContent = `${spec.name} · ${surface.nu}×${surface.nv} CP · p=${surface.p}, q=${surface.q} · 三角网格 ${segU}×${segV}${failureCount ? ` · ${failureCount} 个退化采样已跳过` : ''}`;
 }
 
+function renderKernelBadge() {
+  const badge = $('kernelBadge');
+  if (!surface) {
+    badge.textContent = '内核：无有效曲面';
+    badge.classList.add('degraded');
+    return;
+  }
+  const meshDegraded = mesh && mesh.failures.length > 0;
+  badge.classList.toggle('degraded', meshDegraded);
+  badge.textContent = meshDegraded
+    ? `内核：${surface.engine} v${surface.kernelVersion} · ${mesh.failures.length} 退化采样`
+    : `内核：${surface.engine} v${surface.kernelVersion}`;
+}
+
+function recomputeIsoparametric() {
+  if (!surface) {
+    isoparametric = { ...isoparametric, points: [], failures: [], engine: null };
+    renderIsoReport();
+    return;
+  }
+  const fixed = $('isoFixed').value === 'v' ? 'v' : 'u';
+  const value = Number($('isoValue').value);
+  const curve = surface.isoparametricCurve(fixed, value, 64);
+  // Cross-check the new-kernel iso points against the preserved legacy engine.
+  const crossErrors = [];
+  const domain = fixed === 'v' ? surface.domainU : surface.domainV;
+  curve.points.forEach((point, k) => {
+    const t = domain[0] + ((domain[1] - domain[0]) * k) / Math.max(1, curve.points.length - 1);
+    const legacy = fixed === 'v' ? surface.evaluateLegacy(t, value) : surface.evaluateLegacy(value, t);
+    if (legacy.ok) crossErrors.push(maxComponentError(point, legacy.position));
+  });
+  isoparametric = {
+    fixed,
+    value,
+    points: curve.points,
+    failures: curve.failures,
+    visible: $('isoVisible').checked,
+    engine: curve.engine,
+    crossMaxError: crossErrors.length ? Math.max(...crossErrors) : null
+  };
+  renderIsoReport();
+}
+
+function renderIsoReport() {
+  const host = $('isoReport');
+  if (!surface) {
+    host.innerHTML = '<div class="bad">没有可求值的有效曲面。</div>';
+    return;
+  }
+  const iso = isoparametric;
+  if (!iso.points.length) {
+    host.innerHTML = `
+      <div class="bad">等参线无有效采样点。</div>
+      ${iso.failures.map(f => `<div class="warn mono">${f.u?.toFixed?.(3) ?? ''} ${f.code}</div>`).join('')}
+    `;
+    return;
+  }
+  const crossCls = iso.crossMaxError === null ? 'warn' : iso.crossMaxError < 1e-9 ? 'good' : 'bad';
+  const crossText = iso.crossMaxError === null ? '无对照' : iso.crossMaxError.toExponential(3);
+  host.innerHTML = `
+    <div class="kv"><span>驱动内核</span><span class="mono good">${iso.engine} v${surface.kernelVersion}</span></div>
+    <div class="kv"><span>固定</span><span class="mono">${iso.fixed}=${formatNumber(iso.value, 4)}</span></div>
+    <div class="kv"><span>有效采样</span><span class="mono">${iso.points.length}</span></div>
+    <div class="kv"><span>退化采样</span><span class="mono ${iso.failures.length ? 'warn' : 'good'}">${iso.failures.length}</span></div>
+    <div class="kv"><span>对旧内核最大位置误差</span><span class="mono ${crossCls}">${crossText}</span></div>
+    ${iso.failures.length ? `<div class="bad">失败已回传给样条求值：${iso.failures[0].code}</div>` : '<div class="good">形态与等参线校验通过。</div>'}
+  `;
+}
+
 function rebuild({ fit = false } = {}) {
   validation = validateSpec(spec);
   renderValidation();
@@ -134,6 +207,8 @@ function rebuild({ fit = false } = {}) {
     surface = null;
     mesh = null;
     renderTitle();
+    renderKernelBadge();
+    recomputeIsoparametric();
     renderViewer();
     return;
   }
@@ -145,11 +220,14 @@ function rebuild({ fit = false } = {}) {
     spec.tessellation = { uSegments: segU, vSegments: segV };
     if (fit) viewer.fit(spec.points.flatMap(row => row.map(pointArray)));
     renderTitle(mesh.failures.length);
+    renderKernelBadge();
+    recomputeIsoparametric();
     updateInspector();
   } catch (error) {
     console.error(error);
     surface = null;
     mesh = null;
+    renderKernelBadge();
     $('validationBox').insertAdjacentHTML('beforeend', `<div class="msg error">${error.message}</div>`);
   }
 }
@@ -366,6 +444,13 @@ for (const id of ['showSurface', 'showWire', 'showNet', 'showNormals']) {
 }
 for (const id of ['evalU', 'evalV', 'sideU', 'sideV']) {
   $(id).addEventListener('input', updateInspector);
+}
+for (const id of ['isoFixed', 'isoValue', 'isoVisible']) {
+  $(id).addEventListener('input', () => {
+    if (id === 'isoVisible') isoparametric.visible = $('isoVisible').checked;
+    recomputeIsoparametric();
+    renderViewer(currentMarker());
+  });
 }
 
 const select = $('exampleSelect');

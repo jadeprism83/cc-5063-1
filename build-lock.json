@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "rational-spline-studio",
+  "engine": {
+    "name": "nurbs-kernel-v2",
+    "version": "2.0.0",
+    "adapterVersion": "2.0.0",
+    "archiveSchemaVersion": 2,
+    "entry": "src/kernel/nurbs-kernel.js",
+    "adapter": "src/kernel/adapter.js",
+    "trimming": "src/kernel/trimming.js",
+    "legacyFallback": "src/legacy-engine.js",
+    "legacyEngineName": "legacy-basis-sum",
+    "legacyEngineVersion": "1.0.0"
+  },
+  "evaluationPath": {
+    "primary": "nurbs-kernel-v2",
+    "dualRead": "legacy-basis-sum",
+    "meshGeneration": "nurbs-kernel-v2",
+    "surfaceEntry": "src/surface.js#RationalSurface.evaluate",
+    "legacyEntry": "src/surface.js#RationalSurface.evaluateLegacy"
+  },
+  "migration": {
+    "defaultTargetDomain": [2, 5],
+    "normalizedDomain": [0, 1],
+    "decalModes": ["baked-seam", "arc-length"],
+    "suspensionCode": "MISSING_SEAM_SOURCE",
+    "selectedStrategy": "strategyB-reparametrize"
+  },
+  "contract": {
+    "positionTolerance": 1e-8,
+    "gridTolerance": 1e-8,
+    "derivativeRelativeTolerance": 2e-5,
+    "degenerateStatus": "DEGENERATE_DENOMINATOR",
+    "outOfDomainStatus": "OUT_OF_DOMAIN"
+  }
+}
