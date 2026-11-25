@@ -1,0 +1,29 @@
+{
+  "name": "rational-spline-studio",
+  "version": "1.0.0",
+  "description": "Exact rational B-spline surface inspector and editor",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js",
+    "export": "node cli.js all exports"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jadeprism83/cc-5063-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jadeprism83/cc-5063-1/issues"
+  },
+  "homepage": "https://github.com/jadeprism83/cc-5063-1#readme"
+}

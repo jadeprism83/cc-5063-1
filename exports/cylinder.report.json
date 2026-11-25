@@ -1,0 +1,84 @@
+{
+  "id": "cylinder",
+  "name": "圆柱片：有理二次 90° 弧",
+  "domain": {
+    "u": [
+      0,
+      1
+    ],
+    "v": [
+      0,
+      1
+    ]
+  },
+  "controlPoints": {
+    "u": 3,
+    "v": 2
+  },
+  "degrees": {
+    "u": 2,
+    "v": 1
+  },
+  "mesh": {
+    "uSegments": 72,
+    "vSegments": 16,
+    "triangles": 2304,
+    "skippedSamples": 0
+  },
+  "keyChecks": {
+    "pass": 15,
+    "branch": 0,
+    "fail": 0,
+    "failures": []
+  },
+  "stats": {
+    "analyticPosition": {
+      "count": 441,
+      "min": 0,
+      "max": 6.753223014464258e-16,
+      "mean": 1.8545523177986345e-16,
+      "rms": 2.1277401814237978e-16,
+      "p95": 3.376611507232129e-16
+    },
+    "analyticDerivative": {
+      "count": 441,
+      "min": 0,
+      "max": 1.299708561705305e-15,
+      "mean": 4.854877418421934e-16,
+      "rms": 5.337054144228863e-16,
+      "p95": 9.205742609861894e-16
+    },
+    "finiteDifferenceDerivative": {
+      "count": 441,
+      "min": 9.48917528145564e-13,
+      "max": 3.250596639539504e-10,
+      "mean": 3.719622316140254e-11,
+      "rms": 5.003820931044834e-11,
+      "p95": 7.541799584493458e-11
+    },
+    "subdivisionPosition": {
+      "count": 441,
+      "min": 0,
+      "max": 8.025154038416283e-16,
+      "mean": 2.212315690618895e-16,
+      "rms": 2.7613167505230568e-16,
+      "p95": 5.768888059150692e-16
+    },
+    "subdivisionDerivative": {
+      "count": 441,
+      "min": 0,
+      "max": 0,
+      "mean": 0,
+      "rms": 0,
+      "p95": 0
+    },
+    "basisPartition": {
+      "count": 441,
+      "min": 0,
+      "max": 2.220446049250313e-16,
+      "mean": 2.6433881538694202e-17,
+      "rms": 6.409875621278546e-17,
+      "p95": 1.1102230246251565e-16
+    }
+  }
+}

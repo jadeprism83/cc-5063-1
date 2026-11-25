@@ -1,0 +1,84 @@
+{
+  "id": "zero-weight-endpoint",
+  "name": "零权重端点：可追踪退化分母分支",
+  "domain": {
+    "u": [
+      0,
+      1
+    ],
+    "v": [
+      0,
+      1
+    ]
+  },
+  "controlPoints": {
+    "u": 3,
+    "v": 3
+  },
+  "degrees": {
+    "u": 2,
+    "v": 2
+  },
+  "mesh": {
+    "uSegments": 48,
+    "vSegments": 32,
+    "triangles": 3071,
+    "skippedSamples": 1
+  },
+  "keyChecks": {
+    "pass": 14,
+    "branch": 1,
+    "fail": 0,
+    "failures": []
+  },
+  "stats": {
+    "analyticPosition": {
+      "count": 0,
+      "min": null,
+      "max": null,
+      "mean": null,
+      "rms": null,
+      "p95": null
+    },
+    "analyticDerivative": {
+      "count": 0,
+      "min": null,
+      "max": null,
+      "mean": null,
+      "rms": null,
+      "p95": null
+    },
+    "finiteDifferenceDerivative": {
+      "count": 441,
+      "min": 1.5137401834444688e-12,
+      "max": 5.746541607128564e-10,
+      "mean": 3.254099038978968e-11,
+      "rms": 5.909722841031591e-11,
+      "p95": 7.728145438323202e-11
+    },
+    "subdivisionPosition": {
+      "count": 441,
+      "min": 0,
+      "max": 7.447602459741819e-16,
+      "mean": 1.6544957762758063e-16,
+      "rms": 2.2454265121150444e-16,
+      "p95": 4.577566798522237e-16
+    },
+    "subdivisionDerivative": {
+      "count": 441,
+      "min": 0,
+      "max": 0,
+      "mean": 0,
+      "rms": 0,
+      "p95": 0
+    },
+    "basisPartition": {
+      "count": 441,
+      "min": 0,
+      "max": 2.220446049250313e-16,
+      "mean": 4.858799178064744e-17,
+      "rms": 8.767126681655113e-17,
+      "p95": 2.220446049250313e-16
+    }
+  }
+}

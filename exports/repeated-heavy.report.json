@@ -1,0 +1,84 @@
+{
+  "id": "repeated-heavy",
+  "name": "重复节点 × 极端权重（齐次/细分对照）",
+  "domain": {
+    "u": [
+      0,
+      1
+    ],
+    "v": [
+      0,
+      1
+    ]
+  },
+  "controlPoints": {
+    "u": 6,
+    "v": 2
+  },
+  "degrees": {
+    "u": 3,
+    "v": 1
+  },
+  "mesh": {
+    "uSegments": 120,
+    "vSegments": 12,
+    "triangles": 2880,
+    "skippedSamples": 0
+  },
+  "keyChecks": {
+    "pass": 19,
+    "branch": 0,
+    "fail": 0,
+    "failures": []
+  },
+  "stats": {
+    "analyticPosition": {
+      "count": 0,
+      "min": null,
+      "max": null,
+      "mean": null,
+      "rms": null,
+      "p95": null
+    },
+    "analyticDerivative": {
+      "count": 0,
+      "min": null,
+      "max": null,
+      "mean": null,
+      "rms": null,
+      "p95": null
+    },
+    "finiteDifferenceDerivative": {
+      "count": 441,
+      "min": 1.7276170272306583e-12,
+      "max": 0.00006020107033590241,
+      "mean": 7.533173079132775e-7,
+      "rms": 0.00000503143852922183,
+      "p95": 2.0201365085355907e-7
+    },
+    "subdivisionPosition": {
+      "count": 441,
+      "min": 0,
+      "max": 7.108895957933346e-16,
+      "mean": 2.2678065829344684e-16,
+      "rms": 2.788508271623086e-16,
+      "p95": 4.982493048981751e-16
+    },
+    "subdivisionDerivative": {
+      "count": 441,
+      "min": 0,
+      "max": 3.9044261729293614e-10,
+      "mean": 8.528284369361405e-12,
+      "rms": 4.2237931295901636e-11,
+      "p95": 9.987774605584404e-12
+    },
+    "basisPartition": {
+      "count": 441,
+      "min": 0,
+      "max": 2.220446049250313e-16,
+      "mean": 6.872809200060493e-17,
+      "rms": 1.1102230246251565e-16,
+      "p95": 2.220446049250313e-16
+    }
+  }
+}

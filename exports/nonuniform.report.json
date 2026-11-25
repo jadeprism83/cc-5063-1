@@ -1,0 +1,84 @@
+{
+  "id": "nonuniform",
+  "name": "非均匀节点：三次 U / 二次 V",
+  "domain": {
+    "u": [
+      0,
+      1
+    ],
+    "v": [
+      0,
+      1
+    ]
+  },
+  "controlPoints": {
+    "u": 7,
+    "v": 4
+  },
+  "degrees": {
+    "u": 3,
+    "v": 2
+  },
+  "mesh": {
+    "uSegments": 96,
+    "vSegments": 40,
+    "triangles": 7680,
+    "skippedSamples": 0
+  },
+  "keyChecks": {
+    "pass": 29,
+    "branch": 0,
+    "fail": 0,
+    "failures": []
+  },
+  "stats": {
+    "analyticPosition": {
+      "count": 0,
+      "min": null,
+      "max": null,
+      "mean": null,
+      "rms": null,
+      "p95": null
+    },
+    "analyticDerivative": {
+      "count": 0,
+      "min": null,
+      "max": null,
+      "mean": null,
+      "rms": null,
+      "p95": null
+    },
+    "finiteDifferenceDerivative": {
+      "count": 441,
+      "min": 4.266499961048006e-12,
+      "max": 8.406084976769397e-10,
+      "mean": 3.819280130262946e-11,
+      "rms": 6.398926990452906e-11,
+      "p95": 8.78463350444567e-11
+    },
+    "subdivisionPosition": {
+      "count": 441,
+      "min": 0,
+      "max": 1.3351557049740772e-15,
+      "mean": 2.958884885118816e-16,
+      "rms": 3.8144481031685847e-16,
+      "p95": 8.308148362110448e-16
+    },
+    "subdivisionDerivative": {
+      "count": 441,
+      "min": 5.182209094312152e-17,
+      "max": 1.5853583546251926e-15,
+      "mean": 4.375967107561606e-16,
+      "rms": 5.005172069945846e-16,
+      "p95": 8.906349781197933e-16
+    },
+    "basisPartition": {
+      "count": 441,
+      "min": 0,
+      "max": 3.3306690738754696e-16,
+      "mean": 1.64393568045403e-16,
+      "rms": 1.9374430315959306e-16,
+      "p95": 3.3306690738754696e-16
+    }
+  }
+}
